@@ -1,5 +1,6 @@
 package com.example.app
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,14 @@ class ComicAdapter(private val comics: MutableList<Comic>) : RecyclerView.Adapte
         holder.dateView.text = "${comic.day}.${comic.month}.${comic.year}"
         holder.comicNumView.text = "Comic #${comic.num}"
         Picasso.get().load(comic.img).into(holder.imageView)
+
+        // If the user clicks on an image, they pass the image-url as an Intent to the FullScreenImageActivity and starts the activity.
+        holder.imageView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, FullscreenImageActivity::class.java)
+            intent.putExtra("IMAGE_URL", comic.img)
+            context.startActivity(intent)
+        }
     }
 
     // Method that returns the amount of items in the RecyclerView
