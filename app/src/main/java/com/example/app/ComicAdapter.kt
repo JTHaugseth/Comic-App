@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.Models.Comic
+import com.example.app.models.Comic
 
 // 3rd party library Picasso for loading images
 import com.squareup.picasso.Picasso

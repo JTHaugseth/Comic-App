@@ -1,4 +1,4 @@
-package com.example.app.Models
+package com.example.app.models
 
 data class Comic(
     val num: Int,
