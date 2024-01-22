@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">App</string>
+
+    <string name="default_app_title">Comics App</string>
+    <string name="previous_page_button">Prev Page</string>
+    <string name="next_page_button">Next Page</string>
+    <string name="search_icon_alt">Search Icon</string>
+
+    <string name="default_comic_title">Comic Title</string>
+    <string name="default_comic_date">01.01.2000</string>
+    <string name="default_comic_number">Comic #320</string>
+    <string name="default_comic_image_alt">XKCD comic-image</string>
 </resources>
