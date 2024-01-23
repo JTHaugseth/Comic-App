@@ -35,6 +35,8 @@ Except the font, that didnt fit at all 👎
 
 My thought was to have 10 comics loaded simultaniously in a scrollable view, hence i made the project revolve around my RecyclerView and ComicAdapter. Each comic has its own "card" with all its information and image. 
 
+You can click each image to see it in fullscreen, you can click the globe icon to see the explanation, you can click read more to see the entire transcript, you can search (by number) for comics.
+
 If you need to modify something with the comic-cards, you modify the ComicAdapter, everything else is done in the activity.
 
 I've structured the project in a way that additional features will be easy to implement. However if Firebase and SQLite was included in the project i would add some sort of controller to do logic between my services and activites. My activites would at that point mainly be for UI logic.
