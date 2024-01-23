@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,8 @@ class ComicAdapter(private val comics: MutableList<Comic>) : RecyclerView.Adapte
         val titleView: TextView = view.findViewById(R.id.comicItemTitle)
         val dateView: TextView = view.findViewById(R.id.comicItemDate)
         val comicNumView: TextView = view.findViewById(R.id.comicItemNumber)
+        val transcriptView: TextView = view.findViewById(R.id.comicItemTranscript)
+        val readMoreButton: TextView = view.findViewById(R.id.comicItemReadMoreButton)
     }
 
     // Method to create new ViewHolder-instances
@@ -37,6 +40,10 @@ class ComicAdapter(private val comics: MutableList<Comic>) : RecyclerView.Adapte
         holder.comicNumView.text = "Comic #${comic.num}"
         Picasso.get().load(comic.img).into(holder.imageView)
 
+        // We don't want the whole transcript unless the user wants to see it, so we only show the limited one (only 100 characters)
+        val limitedTranscript = getLimitedTranscript(comic.transcript, 100)
+        holder.transcriptView.text = limitedTranscript
+
         // If the user clicks on an image, they pass the image-url as an Intent to the FullScreenImageActivity and starts the activity.
         holder.imageView.setOnClickListener {
             val context = holder.itemView.context
@@ -44,8 +51,28 @@ class ComicAdapter(private val comics: MutableList<Comic>) : RecyclerView.Adapte
             intent.putExtra("IMAGE_URL", comic.img)
             context.startActivity(intent)
         }
+
+        // The user can toggle on or off the full transcript
+        holder.readMoreButton.setOnClickListener {
+            if (holder.readMoreButton.text == "Read More") {
+                holder.transcriptView.text = comic.transcript
+                holder.readMoreButton.text = "Read Less"
+            } else {
+                holder.transcriptView.text = limitedTranscript
+                holder.readMoreButton.text = "Read More"
+            }
+        }
     }
 
     // Method that returns the amount of items in the RecyclerView
     override fun getItemCount() = comics.size
+
+    // Short method that only returns the 100 first characters of the transcript if its longer than the charLimit (100).
+    private fun getLimitedTranscript(fullTranscript: String, charLimit: Int): String {
+        return if (fullTranscript.length > charLimit) {
+            fullTranscript.substring(0, charLimit) + "..."
+        } else {
+            fullTranscript
+        }
+    }
 }

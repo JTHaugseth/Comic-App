@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">App</string>
 
-    <string name="default_app_title">Comics App</string>
+    <string name="default_app_title">xkcd Comics</string>
     <string name="previous_page_button">Prev Page</string>
     <string name="next_page_button">Next Page</string>
     <string name="search_icon_alt">Search Icon</string>
@@ -13,4 +13,9 @@
     <string name="default_comic_date">01.01.2000</string>
     <string name="default_comic_number">Comic #320</string>
     <string name="default_comic_image_alt">XKCD comic-image</string>
+    <string name="default_comic_transcript_text">Transcript Text</string>
+    <string name="default_comic_transcript_title">Transcript: </string>
+    <string name="default_comic_explanation">Explanation -></string>
+    <string name="comic_item_read_more">Read More</string>
+    <string name="globe_icon_alt">Globe icon</string>
 </resources>

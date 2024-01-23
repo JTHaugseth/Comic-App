@@ -6,5 +6,6 @@ data class Comic(
     val img: String,
     val day: String,
     val month: String,
-    val year: String
+    val year: String,
+    val transcript: String
 )

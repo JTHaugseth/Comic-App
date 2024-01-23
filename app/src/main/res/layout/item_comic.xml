@@ -59,11 +59,64 @@
             android:layout_height="wrap_content"
             android:scaleType="fitCenter"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/comicItemClickImageText"
             app:srcCompat="@drawable/ic_placeholder"
             android:contentDescription="@string/default_comic_image_alt" />
+
+        <TextView
+            android:id="@+id/comicItemTranscriptTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="@string/default_comic_transcript_title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comicItemImage" />
+
+        <TextView
+            android:id="@+id/comicItemTranscript"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/default_comic_transcript_text"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comicItemTranscriptTitle" />
+
+        <TextView
+            android:id="@+id/comicItemReadMoreButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comic_item_read_more"
+            android:textColor="@color/purple"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@id/comicItemTranscript"
+            app:layout_constraintTop_toBottomOf="@id/comicItemTranscript" />
+
+        <TextView
+            android:id="@+id/comicItemExplanation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_marginRight="4dp"
+            android:text="@string/default_comic_explanation"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/comicItemGlobe"
+            app:layout_constraintTop_toBottomOf="@+id/comicItemImage" />
+
+        <ImageView
+            android:id="@+id/comicItemGlobe"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/globe_icon_alt"
+            android:src="@drawable/ic_globe"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comicItemImage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
