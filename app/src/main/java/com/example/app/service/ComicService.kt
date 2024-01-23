@@ -5,6 +5,7 @@ import java.io.IOException
 
 // 3rd party library Gson for JSON parsing
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 
 // 3rd party library OkHttp for HTTP requests
 import okhttp3.*
@@ -13,13 +14,14 @@ class ComicService {
     // Initializing OkHttp and Gson
     private val client = OkHttpClient()
     private val gson = Gson()
+    private val responseSize = 10
 
     // Including a Callback function that provides either a list of comics or an IOException when the function is complete
     fun loadComics(startComicNumber: Int, callback: (List<Comic>?, IOException?) -> Unit) {
         val comics = mutableListOf<Comic>()
         var responsesReceived = 0
 
-        for (i in startComicNumber until startComicNumber + 10) {
+        for (i in startComicNumber until startComicNumber + responseSize) {
             val request = Request.Builder()
                 .url("https://xkcd.com/$i/info.0.json")
                 .build()
@@ -31,7 +33,7 @@ class ComicService {
                 override fun onFailure(call: Call, e: IOException) {
                     synchronized(this) {
                         responsesReceived++
-                        if (responsesReceived == 10) {
+                        if (responsesReceived == responseSize) {
                             callback(null, e)
                         }
                     }
@@ -41,10 +43,19 @@ class ComicService {
                 override fun onResponse(call: Call, response: Response) {
                     response.body?.string()?.let {
                         synchronized(this) {
-                            comics.add(gson.fromJson(it, Comic::class.java))
-                            responsesReceived++
-                            if (responsesReceived == 10) {
-                                callback(comics, null)
+                            // If any item has a successful response but failed to parse we invoke an error callback.
+                            try {
+                                val comic = gson.fromJson(it, Comic::class.java)
+                                comics.add(comic)
+                                responsesReceived++
+                                if (responsesReceived == responseSize) {
+                                    callback(comics, null)
+                                }
+                            } catch (e: JsonSyntaxException) {
+                                responsesReceived++
+                                if (responsesReceived == responseSize) {
+                                    callback(null, IOException("Invalid comic data"))
+                                }
                             }
                         }
                     }

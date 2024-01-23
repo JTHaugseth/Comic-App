@@ -74,9 +74,14 @@ class MainActivity : AppCompatActivity() {
 
         // The Prev Page Button clears the comics list, decreases our variable, runs loadComics again and notifies our comicAdapter of the change.
         findViewById<Button>(R.id.prevPageButton).setOnClickListener {
-            if (currentPageStart > 1) {
+            if (currentPageStart > 10) {
                 comics.clear()
                 currentPageStart -= 10
+                loadComics(currentPageStart)
+                comicAdapter.notifyDataSetChanged()
+            } else {
+                comics.clear()
+                currentPageStart = 1
                 loadComics(currentPageStart)
                 comicAdapter.notifyDataSetChanged()
             }
@@ -84,10 +89,12 @@ class MainActivity : AppCompatActivity() {
 
         // The Next Page Button clears the comics list, increases our variable, runs loadComics again and notifies our comicAdapter of the change.
         findViewById<Button>(R.id.nextPageButton).setOnClickListener {
-            comics.clear()
-            currentPageStart += 10
-            loadComics(currentPageStart)
-            comicAdapter.notifyDataSetChanged()
+            if (currentPageStart < latestComicNum - 10) {
+                comics.clear()
+                currentPageStart += 10
+                loadComics(currentPageStart)
+                comicAdapter.notifyDataSetChanged()
+            }
         }
     }
 
