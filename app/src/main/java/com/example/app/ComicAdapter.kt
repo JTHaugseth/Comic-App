@@ -1,10 +1,10 @@
 package com.example.app
 
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +23,7 @@ class ComicAdapter(private val comics: MutableList<Comic>) : RecyclerView.Adapte
         val comicNumView: TextView = view.findViewById(R.id.comicItemNumber)
         val transcriptView: TextView = view.findViewById(R.id.comicItemTranscript)
         val readMoreButton: TextView = view.findViewById(R.id.comicItemReadMoreButton)
+        val globeView: ImageView = view.findViewById(R.id.comicItemGlobe)
     }
 
     // Method to create new ViewHolder-instances
@@ -61,6 +62,14 @@ class ComicAdapter(private val comics: MutableList<Comic>) : RecyclerView.Adapte
                 holder.transcriptView.text = limitedTranscript
                 holder.readMoreButton.text = "Read More"
             }
+        }
+
+        // The user can click on the globe-icon to get the comic-explanation. They will be sent to the phones default web browser.
+        holder.globeView.setOnClickListener {
+            val url = "https://www.explainxkcd.com/wiki/index.php/${comic.num}"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            holder.itemView.context.startActivity(intent)
         }
     }
 
