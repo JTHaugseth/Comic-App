@@ -5,6 +5,7 @@
     <string name="previous_page_button">Prev Page</string>
     <string name="next_page_button">Next Page</string>
     <string name="search_icon_alt">Search Icon</string>
+    <string name="comics_loaded">Comics: 1 -> 10</string>
 
     <string name="default_comic_title">Comic Title</string>
     <string name="click_image_text">Click image for fullscreen</string>

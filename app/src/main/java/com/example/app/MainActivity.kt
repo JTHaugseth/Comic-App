@@ -3,6 +3,7 @@ package com.example.app
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private val comics = mutableListOf<Comic>()
     private var currentPageStart = 1
     private val comicService = ComicService()
+    private lateinit var comicsLoadedText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         // Then we load our comics!
         loadComics(currentPageStart)
+
+        comicsLoadedText = findViewById(R.id.comicsLoadedText)
 
         // The Prev Page Button clears the comics list, decreases our variable, runs loadComics again and notifies our comicAdapter of the change.
         findViewById<Button>(R.id.prevPageButton).setOnClickListener {
@@ -58,7 +62,11 @@ class MainActivity : AppCompatActivity() {
                 } else if (comicsList != null) {
                     comics.clear()
                     comics.addAll(comicsList)
+                    comics.sortBy { it.num }
                     comicAdapter.notifyDataSetChanged()
+
+                    // Updating the comics-loaded text above the RecyclerView
+                    comicsLoadedText.text = "Comics: ${startComicNumber} -> ${(startComicNumber + comics.size) - 1}"
                 }
             }
         }
